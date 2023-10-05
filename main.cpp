@@ -115,8 +115,6 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
         {
             cout << "Login Successfully" << endl;
             return true;
-        }else {
-
         }
     }
 

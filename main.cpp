@@ -1,8 +1,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
+
+
+// เช็คผู้ใช้งาน 
+bool CheckUser(ifstream &InFile, string param_username, string param_password);
 
 /*
  * [🧠] MENU ZONE
@@ -14,20 +19,23 @@ void room_menu();
  * [🧠] ROOM ZONE
  */
 void InsertData(ofstream &OutFile);
-bool CheckUser(ifstream &InFile, string param_username, string param_password);
+
 
 int main()
 {
+
     string Filename = "user.txt";
     ifstream InFile;
     ofstream OutFile;
     bool CheckUserStatus;
 
     string username, password;
-    cout << "username : ";
+    cout << setfill('*') << setw(55) << "*" << endl;
+    cout << setfill(' ') << setw(25) <<  "Username : ";
     cin >> username;
-    cout << "password : ";
+    cout << setfill(' ') << setw(25) << "Password : ";
     cin >> password;
+    cout << setfill('*') << setw(55) << "*" << endl;
 
     /*
         ? เปิดไฟล์เเละเช็ค

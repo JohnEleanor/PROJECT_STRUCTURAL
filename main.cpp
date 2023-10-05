@@ -111,19 +111,16 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
 
     while (InFile >> username >> pass)
     {
-    
         if (param_username == username && param_password == pass)
         {
-            cout << "login Successfully ";
-            return (true);
-            break;
-        }
-        else
-        {
-            cout << "Login Failied";
-            return (false);
-            break;
+            cout << "Login Successfully" << endl;
+            return true;
+        }else {
+
         }
     }
+
+            
+    return false;
 
 }

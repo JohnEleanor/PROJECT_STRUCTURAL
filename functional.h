@@ -85,4 +85,3 @@ void InsertData(ofstream &OutFile)
     string Id, Name, SurName;
     cout << endl;
 }
-

@@ -41,8 +41,8 @@ int main()
     // If ststus login Pass Do The 
     if (CheckUserStatus == true)
     {
-        int choice_num_set = 2; //! [🧠]Setting จำนวนเมนู
-        int select_menu;
+        // int choice_num_set = 2; //! [🧠]Setting จำนวนเมนู
+        string select_menu;
 
         do
         {
@@ -50,7 +50,8 @@ int main()
             main_menu(); //! MENU
             cin >> select_menu;
 
-            if (select_menu == 1)
+            
+            if (select_menu == "1") // เกี่ยวกับระบบห้อง 
             {
 
                 int room_select;
@@ -61,25 +62,27 @@ int main()
 
                     if (room_select == 0)
                     {
-                        select_menu = 0;
+                        select_menu = "0";
                         break;
                     }else if ( room_select == 1 ) {
 
-                        cout << "This  is Menu 1 : ";
+                        cout << "This  is Menu 1 : \n";
 
                     }else if ( room_select == 2 ){
 
-                        cout << "this is menu 2 : ";
+                        cout << "this is menu 2 : \n";
 
                     }else if ( room_select  == 3) {
 
-                        cout << "This is Menu 3 : ";
+                        cout << "This is Menu 3 : \n";
 
+                    }else {
+                        cout << "Menu is not found ";
                     }
 
                 } while (room_select != 9 && (room_select <= 4));
             }
-            else if (select_menu == 2)
+            else if (select_menu == "2") // เกี่ยวกับระบบผู้ใช้งาน
             {
 
                 int user_select;
@@ -90,20 +93,22 @@ int main()
 
                     if (user_select == 0)
                     {
-                        select_menu = 0;
+                        select_menu = "0";
                         break;
                     }else if (user_select == 1){
 
-                        cout << "this is menu 1 :";
+                        cout << "this is menu 1 : \n";
 
                     }else if (user_select == 2){
 
-                        cout << "This is menu 2 :";
+                        cout << "This is menu 2 : \n";
 
                     }else if ( user_select = 3 ) {
 
-                        cout << "This is menu 3 :";
+                        cout << "This is menu 3 : \n";
 
+                    }else {
+                        cout << "Menu is not found : \n";
                     }
 
                 } while (user_select != 9 && (user_select <= 4));
@@ -111,7 +116,7 @@ int main()
                 cout << "Plase Try Again \n";
             }
 
-        } while (select_menu != 0 );
+        } while ( select_menu != "0" );
 
     }
     else

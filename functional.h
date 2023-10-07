@@ -23,7 +23,7 @@ void main_menu()
 */
 void room_menu()
 {
-    system("CLS");
+    // system("CLS");
     cout << "===== Room management =====\n";
     cout << "[1] Create Room \n";
     cout << "[2] Edit Room \n";
@@ -40,7 +40,7 @@ void room_menu()
 */
 void user_menu()
 {
-    system("CLS");
+    // system("CLS");
     cout << "===== User management =====\n";
     cout << "[1] Add User \n";
     cout << "[2] Edit User \n";
@@ -49,16 +49,6 @@ void user_menu()
     cout << "[0] Exit Program \n";
     cout << "===================\n";
     cout << "[+] Plase Enter Your Choice : ";
-}
-
-/*
-    [🧠] เพิ่มผู้ใชงาน
-    [📂] ใช้สำหรับ : เพิ่มผู้ใช้งาน
-*/
-void InsertData(ofstream &OutFile)
-{
-    string Id, Name, SurName;
-    cout << endl;
 }
 
 /*
@@ -83,3 +73,16 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
     return false;
 
 }
+
+
+
+/*
+    [🧠] เพิ่มผู้ใชงาน
+    [📂] ใช้สำหรับ : เพิ่มผู้ใช้งาน
+*/
+void InsertData(ofstream &OutFile)
+{
+    string Id, Name, SurName;
+    cout << endl;
+}
+

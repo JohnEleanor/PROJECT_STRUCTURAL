@@ -8,7 +8,7 @@ using namespace std;
 */
 void main_menu()
 {
-    system("CLS");
+    // system("CLS");
     cout << "===== Welcome =====" << endl;
     cout << "[1] Room management \n";
     cout << "[2] User management \n";

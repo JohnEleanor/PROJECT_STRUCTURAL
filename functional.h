@@ -44,7 +44,7 @@ void room_menu()
 */
 void user_menu()
 {
-    system("CLS");
+    // system("CLS");
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
     cout << "User management" << endl;
@@ -79,7 +79,7 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
     return false;
 }
 
-bool CheckAlReadyUser(ifstream &InFile, string Check_user, string Check_password)
+bool CheckAlReadyUser_insert(ifstream &InFile, string Check_user, string Check_password)
 {
 
     bool dataExists = false;
@@ -97,7 +97,6 @@ bool CheckAlReadyUser(ifstream &InFile, string Check_user, string Check_password
         }
     }
 
-    InFile.close();
 
     return dataExists;
 }
@@ -110,7 +109,8 @@ bool CheckAlReadyUser(ifstream &InFile, string Check_user, string Check_password
 */
 bool Insert_User(ifstream &InFile)
 {
-    system("CLS");
+    
+    // system("CLS");
     string Filename = "user.txt";
     fstream fileInOut(Filename.c_str(), ios::in | ios::out);
     string Name, Password;
@@ -120,58 +120,97 @@ bool Insert_User(ifstream &InFile)
     cout << "User Add Function" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
 
-    cout << "[+] Plase Enter Your Name : ";
+    cout << "[+] Plase Enter Your (New username) : ";
     cin >> Name;
-    cout << "[+] Plase Enter Your Password : ";
+    cout << "[+] Plase Enter Your (New Password) : ";
     cin >> Password;
 
-    CheckAlready_user = CheckAlReadyUser(InFile, Name, Password);
-   
+    CheckAlready_user = CheckAlReadyUser_insert(InFile, Name, Password);
 
     if (CheckAlready_user == false)
     {
         ofstream fileOut(Filename.c_str(), ios_base::app);
-        fileOut << endl << Name << " " << Password;
+        fileOut << endl
+                << Name << " " << Password;
         fileOut.close();
-        
+
         return (true);
-        
     }
 
     return (false);
-
 }
 
 bool Edit_User(ifstream &InFile)
 {
-    system("CLS");
+    // system("CLS");
 
-    string Name, Password;
+    string username, old_username, password;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
     cout << "User Edit Function" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
-
-    cout << "[+] Plase Enter Your Name : ";
-    cin >> Name;
-    cout << "[+] Plase Enter Your Password : ";
-    cin >> Password;
+    cout << "[+] Enter Your old user name : ";
+    cin >> old_username;
+    cout << "[+] Plase Enter Your New Username : ";
+    cin >> username;
+    cout << "[+] Plase Enter Your New Password : ";
+    cin >> password;
 
     return true;
 }
 
-bool Delete_User(ifstream &InFile)
+bool Delete_User(ifstream &InFile, string Filename)
 {
-    system("CLS");
-
-    string Name, Password;
+    // system("CLS");
+    fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+    // ofstream fileOut(Filename, ios::out);
+    // ifstream fileIn(Filename.c_str(), ios::in);
+    // ofstream fileOut(Filename, ios::out);
+    string username, password;
+    string read_username, read_password;
+    bool check_status;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
-    cout << "User Edit Function" << endl;
+    cout << "User Delete Function" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
-
     cout << "Plase Enter Your Name You Want to Delete : ";
-    cin >> Name;
+    cin >> username;
+    cout << "Confirm Your password : ";
+    cin >> password;
 
-    return true;
+    check_status = CheckAlReadyUser_insert(InFile, username, password);
+
+    if (check_status)
+    {
+        string confirm;
+
+        do
+        {
+            cout << "Are you sure you want to delete (Y/n) : ";
+            cin >> confirm;
+            string new_username;
+            string input_user_password;
+            bool dataExists = false;
+
+            if (confirm == "Y" || "y"){
+                input_user_password = username + " " + password;
+                while (getline(InFile, new_username))
+                {
+                    if (new_username == input_user_password)
+                    {
+                        cout << "DELETE :" << endl;
+                        dataExists = true;
+                        break;
+                    }
+                }
+            }
+        
+        } while (confirm != "Y" and confirm != "n");
+    }
+    else
+    {
+        cout << "[+] Can not find your username ;( " << endl;
+    }
+
+    return false;
 }

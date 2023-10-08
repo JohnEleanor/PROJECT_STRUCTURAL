@@ -148,7 +148,7 @@ int main()
                     }
                     else if (user_select == "3")
                     {
-                        Delete_User(InFile);
+                        Delete_User(InFile, Filename);
                     }
                     else
                     {

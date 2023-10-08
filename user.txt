@@ -1,3 +1,2 @@
-Test Test
-AAAAB A
+AB AB
 A A

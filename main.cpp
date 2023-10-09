@@ -106,7 +106,7 @@ int main()
                     ! [🟢] user.txt
                 */
                 string user_select;
-                bool user_add_status;
+                bool user_add_status, user_delete_status;
                 do
                 {
                     InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
@@ -144,12 +144,30 @@ int main()
                     }
                     else if (user_select == "2")
                     {
-                        Edit_User(InFile);
+                        Edit_User(InFile, Filename);
                     }
                     else if (user_select == "3")
                     {
                         
-                        Delete_User(InFile, Filename);
+                        user_delete_status = Delete_User(InFile, Filename);
+                        if ( user_delete_status == true )
+                        {
+                            system("CLS");
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << setfill(' ') << setw(35);
+                            cout << "Delete User successfully ;)" << endl;
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << "Press Any key to Continue... ";
+                            getch();
+                        }else if( user_delete_status == false) {
+                            system("CLS");
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << setfill(' ') << setw(35);
+                            cout << "Have Already username password" << endl;
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << "Press Any key to Continue... ";
+                            getch();
+                        }
                     }
                     else
                     {

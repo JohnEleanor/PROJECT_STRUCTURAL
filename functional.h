@@ -1,6 +1,16 @@
-#include <iostream>
-#include <fstream>
 using namespace std;
+
+/**
+ * @brief Part of J Code
+ *? @function main_menu() เเสดงผลหน้าหลัก
+ *? @function room_menu() เเสดงผลหน้าห้อง
+ *? @function user_menu() เเสดงผลหน้าผู้ใช้งาน
+ *? @function CheckUser() เช็ค Login
+ *? @function CheckUser_Haved() เช็คผู้ใช้ในบรรทัด return true
+ *? @function Insert_User() เพิ่มผู้ใช้งาน
+ *? @function Edit_User() เเก้ไขผู้ใช้งาน
+ *? @function Delete_User() ลบผู้ใช้งาน
+ */
 
 /*
     [🧠] หน้าเมนูหลัก
@@ -71,7 +81,7 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
     {
         if (param_username == username && param_password == pass)
         {
-            cout << "Login Successfully" << endl;
+            cout << "yay Correct Let gooooo.. " << endl;
             return true;
         }
     }
@@ -79,7 +89,12 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
     return false;
 }
 
-bool CheckAlReadyUser_insert(ifstream &InFile, string Check_user, string Check_password)
+/*
+    [🧠] เช็คบรรทัด
+    [📂] ใช้สำหรับ : เช็คการมีอยู่ของ input ที่กรอกเข้ามา
+    [🎃] ถ้ามีอยู่ return (ture)
+*/
+bool CheckUser_Haved(ifstream &InFile, string Check_user, string Check_password)
 {
 
     bool dataExists = false;
@@ -97,19 +112,16 @@ bool CheckAlReadyUser_insert(ifstream &InFile, string Check_user, string Check_p
         }
     }
 
-
     return dataExists;
 }
 
 /*
     [🧠] เพิ่มผู้ใชงาน
     [📂] ใช้สำหรับ : เพิ่มผู้ใช้งาน
-
-    ofstream &OutFile
 */
 bool Insert_User(ifstream &InFile)
 {
-    
+
     system("CLS");
     string Filename = "user.txt";
     fstream fileInOut(Filename.c_str(), ios::in | ios::out);
@@ -125,7 +137,7 @@ bool Insert_User(ifstream &InFile)
     cout << "[+] Plase Enter Your (New Password) : ";
     cin >> Password;
 
-    CheckAlready_user = CheckAlReadyUser_insert(InFile, Name, Password);
+    CheckAlready_user = CheckUser_Haved(InFile, Name, Password);
 
     if (CheckAlready_user == false)
     {
@@ -139,29 +151,106 @@ bool Insert_User(ifstream &InFile)
     return (false);
 }
 
-bool Edit_User(ifstream &InFile)
+/*
+    [🧠] เเก้ไขผู้ใช้งาน
+    [📂] ใช้สำหรับ : เเก้ไขผู้ใช้งาน
+*/
+bool Edit_User(ifstream &InFile, const string Filename)
 {
     system("CLS");
-
-    string username, old_username, password;
+    string old_username, old_password, username, password;
+    bool Check_status;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
     cout << "User Edit Function" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << "[+] Enter Your old user name : ";
     cin >> old_username;
-    cout << "[+] Plase Enter Your New Username : ";
-    cin >> username;
-    cout << "[+] Plase Enter Your New Password : ";
-    cin >> password;
+    cout << "[+] Enter Your old password name : ";
+    cin >> old_password;
 
-    return true;
+    Check_status = CheckUser_Haved(InFile, old_username, old_password);
+    InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); ได้นะจ๊ะ
+    if (Check_status == true) // ถ้า input มีอยู่จริง จึงจะเเก้ไขได้
+    {
+
+        // Do this
+        string Confirm;
+        do
+        {
+            cout << "Are you sure you want to Edit (Y/n) : ";
+            cin >> Confirm;
+
+            if (Confirm == "Y" || Confirm == "y")
+            {
+      
+                system("CLS");
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << setfill(' ') << setw(35);
+                cout << "Edit Mode ;)" << endl;
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << "[+] Plase Enter Your New Username : ";
+                cin >> username;
+                cout << "[+] Plase Enter Your New Password : ";
+                cin >> password;
+
+                fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+                ofstream tempFile("temp.txt");
+                string userToEdit = old_username + " " + old_password;
+                string newUsertoEdit = username + " " + password;
+                string line;
+
+
+
+                while (getline(fileInOut, line))
+                {
+                    cout << "Line : " << line << endl;
+                    cout << "userToEdit : "<< userToEdit << endl;
+                    if (line == userToEdit)
+                    {
+                        tempFile << newUsertoEdit << endl;
+                    }
+                }
+
+                fileInOut.close();
+                tempFile.close();
+
+                remove(Filename.c_str());
+
+                rename("temp.txt", Filename.c_str());
+                cout << "EXIT.. ";
+                getch();
+                return true;
+            }
+            else
+            {
+
+                system("CLS");
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << setfill(' ') << setw(35);
+                cout << "[!] Action was canceled." << endl;
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << "Press Any key to Exit... ";
+                getch();
+                return false;
+            }
+        } while (Confirm == "Y" || Confirm == "y");
+    }
+    else
+    {
+        cout << endl << "Can not find your input ;( .. ";
+    }
+    getch();
+    return false;
 }
 
+/*
+    [🧠] ใช้เพื่อลบผู้ใช้งาน
+    [📂] ใช้สำหรับ : ใช้เพื่อลบผู้ใช้งาน
+*/
 bool Delete_User(ifstream &InFile, const string Filename)
 {
     system("CLS");
-   
     string username, password;
     string read_username, read_password;
     bool check_status;
@@ -174,7 +263,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
     cout << "Confirm Your password : ";
     cin >> password;
 
-    check_status = CheckAlReadyUser_insert(InFile, username, password);
+    check_status = CheckUser_Haved(InFile, username, password);
     InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); ได้นะจ๊ะ
 
     if (check_status)
@@ -186,7 +275,10 @@ bool Delete_User(ifstream &InFile, const string Filename)
             cout << "Are you sure you want to delete (Y/n) : ";
             cin >> confirm;
 
-            if (confirm == "Y" || "y"){
+            cout << confirm << endl;
+
+            if (confirm == "Y" || "y")
+            {
                 string line;
                 string userToDelete = username + " " + password;
                 fstream fileInOut(Filename.c_str(), ios::in | ios::out);
@@ -204,35 +296,34 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 fileInOut.close();
                 tempFile.close();
 
-                // Remove the original file
+                // ลบไฟล์เก่า
                 remove("user.txt");
+                //! ตรงนี้ [Debug]
                 // cout << "Delete Old file.. " << endl;
                 // getch();
 
-                // Rename the temporary file to the original file
+                // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
                 rename("temp.txt", Filename.c_str());
 
-                
-                system("CLS");
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << setfill(' ') << setw(35);
-                cout << "[+] User deleted successfully." << endl;
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... " << endl ;
+                // system("CLS");
+                // cout << setfill('=') << setw(55) << "=" << endl;
+                // cout << setfill(' ') << setw(35);
+                // cout << "[+] User deleted successfully." << endl;
+                // cout << setfill('=') << setw(55) << "=" << endl;
+                // cout << "Press Any key to Exit... " << endl ;
                 getch();
                 return true;
             }
             else if (confirm == "n" || confirm == "N")
             {
-              
+
                 system("CLS");
                 cout << setfill('=') << setw(55) << "=" << endl;
                 cout << setfill(' ') << setw(35);
                 cout << "[+] Deletion canceled." << endl;
                 cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... " << endl ;
+                cout << "Press Any key to Exit... " << endl;
                 getch();
-                return false;  
             }
             else
             {
@@ -241,13 +332,11 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 cout << setfill(' ') << setw(35);
                 cout << "[+] Invalid input. Please enter 'Y' or 'n'." << endl;
                 cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... " << endl ;
+                cout << "Press Any key to Exit... " << endl;
                 getch();
-               
             }
 
-        
-        } while (confirm != "Y");
+        } while (confirm == "Y");
     }
     else
     {
@@ -258,7 +347,6 @@ bool Delete_User(ifstream &InFile, const string Filename)
         cout << setfill('=') << setw(55) << "=" << endl;
         cout << "Press Any key to Exit... " << endl;
         getch();
-
     }
 
     return false;

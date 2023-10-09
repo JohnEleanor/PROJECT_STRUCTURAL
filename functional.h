@@ -161,7 +161,7 @@ bool Edit_User(ifstream &InFile)
 
 bool Delete_User(ifstream &InFile, string Filename)
 {
-    // system("CLS");
+    system("CLS");
     fstream fileInOut(Filename.c_str(), ios::in | ios::out);
     // ofstream fileOut(Filename, ios::out);
     // ifstream fileIn(Filename.c_str(), ios::in);
@@ -194,7 +194,7 @@ bool Delete_User(ifstream &InFile, string Filename)
 
             if (confirm == "Y" || "y"){
                 input_user_password = username + " " + password;
-                while (getline(InFile, new_username))
+                while (getline(InFile, input_user_password))
                 {
                     if (new_username == input_user_password)
                     {

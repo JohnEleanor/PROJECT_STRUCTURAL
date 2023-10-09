@@ -200,17 +200,21 @@ bool Edit_User(ifstream &InFile, const string Filename)
                 string newUsertoEdit = username + " " + password;
                 string line;
 
+        /**
+            * @param line คือข้อมูลที่อ่านได้มาในไฟล์ .txt
+            * @param fileInOut คือตัวอ่านไฟล์
+        */
 
-
-                while (getline(fileInOut, line))
+                 while (getline(fileInOut, line))
                 {
-                    cout << "Line : " << line << endl;
-                    cout << "userToEdit : "<< userToEdit << endl;
-                    if (line == userToEdit)
+                    if (line != userToEdit)
                     {
-                        tempFile << newUsertoEdit << endl;
+                        tempFile << line << endl;
                     }
+                    
                 }
+
+                tempFile << newUsertoEdit << endl;
 
                 fileInOut.close();
                 tempFile.close();
@@ -218,8 +222,6 @@ bool Edit_User(ifstream &InFile, const string Filename)
                 remove(Filename.c_str());
 
                 rename("temp.txt", Filename.c_str());
-                cout << "EXIT.. ";
-                getch();
                 return true;
             }
             else
@@ -275,8 +277,6 @@ bool Delete_User(ifstream &InFile, const string Filename)
             cout << "Are you sure you want to delete (Y/n) : ";
             cin >> confirm;
 
-            cout << confirm << endl;
-
             if (confirm == "Y" || "y")
             {
                 string line;
@@ -313,8 +313,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 // cout << "Press Any key to Exit... " << endl ;
                 getch();
                 return true;
-            }
-            else if (confirm == "n" || confirm == "N")
+            } else
             {
 
                 system("CLS");
@@ -325,16 +324,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 cout << "Press Any key to Exit... " << endl;
                 getch();
             }
-            else
-            {
-                system("CLS");
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << setfill(' ') << setw(35);
-                cout << "[+] Invalid input. Please enter 'Y' or 'n'." << endl;
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... " << endl;
-                getch();
-            }
+         
 
         } while (confirm == "Y");
     }

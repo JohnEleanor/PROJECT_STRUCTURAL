@@ -305,13 +305,6 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
                 rename("temp.txt", Filename.c_str());
 
-                // system("CLS");
-                // cout << setfill('=') << setw(55) << "=" << endl;
-                // cout << setfill(' ') << setw(35);
-                // cout << "[+] User deleted successfully." << endl;
-                // cout << setfill('=') << setw(55) << "=" << endl;
-                // cout << "Press Any key to Exit... " << endl ;
-                getch();
                 return true;
             } else
             {

@@ -16,7 +16,9 @@
     use by c++ 
 
 # Collaborators
-    [💻] Student_1 :  <br>
+    [💻] Student_1 : 
     [💻] Student_2 : 6606021420148 Choritros Suwansoot SEC A 
 
-
+# Default
+    [🗂] username : Admin
+    [🗂] Password : Admin

@@ -148,6 +148,7 @@ int main()
                     }
                     else if (user_select == "3")
                     {
+                        
                         Delete_User(InFile, Filename);
                     }
                     else
@@ -172,6 +173,8 @@ int main()
     cout << setfill(' ') << setw(35);
     cout << "Thank You ;)" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
+    cout << "Press Any key to Exit... ";
+    getch();
 
     return 0;
 }

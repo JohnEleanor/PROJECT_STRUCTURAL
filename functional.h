@@ -163,9 +163,6 @@ bool Delete_User(ifstream &InFile, string Filename)
 {
     system("CLS");
     fstream fileInOut(Filename.c_str(), ios::in | ios::out);
-    // ofstream fileOut(Filename, ios::out);
-    // ifstream fileIn(Filename.c_str(), ios::in);
-    // ofstream fileOut(Filename, ios::out);
     string username, password;
     string read_username, read_password;
     bool check_status;
@@ -179,6 +176,7 @@ bool Delete_User(ifstream &InFile, string Filename)
     cin >> password;
 
     check_status = CheckAlReadyUser_insert(InFile, username, password);
+    InFile.close();
 
     if (check_status)
     {
@@ -193,23 +191,79 @@ bool Delete_User(ifstream &InFile, string Filename)
             bool dataExists = false;
 
             if (confirm == "Y" || "y"){
-                input_user_password = username + " " + password;
-                while (getline(InFile, input_user_password))
+                string line;
+                string userToDelete = username + " " + password;
+
+                // Create a temporary file to write the updated data
+                ofstream tempFile("temp.txt");
+
+                while (getline(fileInOut, line))
                 {
-                    if (new_username == input_user_password)
+                    if (line != userToDelete)
                     {
-                        cout << "DELETE :" << endl;
-                        dataExists = true;
-                        break;
+                        tempFile << line << endl;
                     }
                 }
+
+                // Close the original file and the temporary file
+                fileInOut.close();
+                tempFile.close();
+
+                // Remove the original file
+                remove("user.txt");
+                cout << "Delete Old file.. " << endl;
+                getch();
+
+                // Rename the temporary file to the original file
+                rename("temp.txt", "user.txt");
+
+                
+                system("CLS");
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << setfill(' ') << setw(35);
+                cout << "[+] User deleted successfully." << endl;
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << "Press Any key to Exit... " << endl ;
+                getch();
+                return true;
             }
+            else if (confirm == "n" || confirm == "N")
+            {
+                
+                system("CLS");
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << setfill(' ') << setw(35);
+                cout << "[+] Deletion canceled." << endl;
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << "Press Any key to Exit... " << endl ;
+                getch();
+                return false;
+            }
+            else
+            {
+                system("CLS");
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << setfill(' ') << setw(35);
+                cout << "[+] Invalid input. Please enter 'Y' or 'n'." << endl;
+                cout << setfill('=') << setw(55) << "=" << endl;
+                cout << "Press Any key to Exit... " << endl ;
+                getch();
+               
+            }
+
         
-        } while (confirm != "Y" and confirm != "n");
+        } while (confirm != "Y");
     }
     else
     {
+        system("CLS");
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << setfill(' ') << setw(35);
         cout << "[+] Can not find your username ;( " << endl;
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << "Press Any key to Exit... " << endl;
+        getch();
+
     }
 
     return false;

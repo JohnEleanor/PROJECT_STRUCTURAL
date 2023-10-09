@@ -44,7 +44,7 @@ void room_menu()
 */
 void user_menu()
 {
-    // system("CLS");
+    system("CLS");
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
     cout << "User management" << endl;
@@ -110,7 +110,7 @@ bool CheckAlReadyUser_insert(ifstream &InFile, string Check_user, string Check_p
 bool Insert_User(ifstream &InFile)
 {
     
-    // system("CLS");
+    system("CLS");
     string Filename = "user.txt";
     fstream fileInOut(Filename.c_str(), ios::in | ios::out);
     string Name, Password;
@@ -130,8 +130,7 @@ bool Insert_User(ifstream &InFile)
     if (CheckAlready_user == false)
     {
         ofstream fileOut(Filename.c_str(), ios_base::app);
-        fileOut << endl
-                << Name << " " << Password;
+        fileOut << Name << " " << Password << endl;
         fileOut.close();
 
         return (true);
@@ -142,7 +141,7 @@ bool Insert_User(ifstream &InFile)
 
 bool Edit_User(ifstream &InFile)
 {
-    // system("CLS");
+    system("CLS");
 
     string username, old_username, password;
     cout << setfill('=') << setw(55) << "=" << endl;
@@ -159,10 +158,10 @@ bool Edit_User(ifstream &InFile)
     return true;
 }
 
-bool Delete_User(ifstream &InFile, string Filename)
+bool Delete_User(ifstream &InFile, const string Filename)
 {
     system("CLS");
-    fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+   
     string username, password;
     string read_username, read_password;
     bool check_status;
@@ -176,7 +175,7 @@ bool Delete_User(ifstream &InFile, string Filename)
     cin >> password;
 
     check_status = CheckAlReadyUser_insert(InFile, username, password);
-    InFile.close();
+    InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); ได้นะจ๊ะ
 
     if (check_status)
     {
@@ -186,15 +185,12 @@ bool Delete_User(ifstream &InFile, string Filename)
         {
             cout << "Are you sure you want to delete (Y/n) : ";
             cin >> confirm;
-            string new_username;
-            string input_user_password;
-            bool dataExists = false;
 
             if (confirm == "Y" || "y"){
                 string line;
                 string userToDelete = username + " " + password;
-
-                // Create a temporary file to write the updated data
+                fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+                // สร้างไฟล์สำรองขึ้นมาก่อนเเล้ว copy ข้อมูลเเล้วลบบรรทัด
                 ofstream tempFile("temp.txt");
 
                 while (getline(fileInOut, line))
@@ -205,17 +201,16 @@ bool Delete_User(ifstream &InFile, string Filename)
                     }
                 }
 
-                // Close the original file and the temporary file
                 fileInOut.close();
                 tempFile.close();
 
                 // Remove the original file
                 remove("user.txt");
-                cout << "Delete Old file.. " << endl;
-                getch();
+                // cout << "Delete Old file.. " << endl;
+                // getch();
 
                 // Rename the temporary file to the original file
-                rename("temp.txt", "user.txt");
+                rename("temp.txt", Filename.c_str());
 
                 
                 system("CLS");
@@ -229,7 +224,7 @@ bool Delete_User(ifstream &InFile, string Filename)
             }
             else if (confirm == "n" || confirm == "N")
             {
-                
+              
                 system("CLS");
                 cout << setfill('=') << setw(55) << "=" << endl;
                 cout << setfill(' ') << setw(35);
@@ -237,7 +232,7 @@ bool Delete_User(ifstream &InFile, string Filename)
                 cout << setfill('=') << setw(55) << "=" << endl;
                 cout << "Press Any key to Exit... " << endl ;
                 getch();
-                return false;
+                return false;  
             }
             else
             {

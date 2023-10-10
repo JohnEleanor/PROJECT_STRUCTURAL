@@ -132,14 +132,6 @@ int main()
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << "Press Any key to Continue... ";
                             getch();
-                        }else {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "Have Already username password" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch();
                         }
                     }
                     else if (user_select == "2")
@@ -154,15 +146,6 @@ int main()
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << "Press Any key to Continue... ";
                             getch(); 
-                        }else {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "Edit User Went Wrong ;(" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch();
-                            
                         }
                     }
                     else if (user_select == "3")
@@ -175,14 +158,6 @@ int main()
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << setfill(' ') << setw(35);
                             cout << "Delete User successfully ;)" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch();
-                        }else if( user_delete_status == false) {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "[+] Something went wrong" << endl;
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << "Press Any key to Continue... ";
                             getch();

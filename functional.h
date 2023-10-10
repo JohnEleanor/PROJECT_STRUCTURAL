@@ -268,7 +268,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
     check_status = CheckUser_Haved(InFile, username, password);
     InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); ได้นะจ๊ะ
 
-    if (check_status)
+    if (check_status == true)
     {
         string confirm;
 
@@ -277,7 +277,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
             cout << "Are you sure you want to delete (Y/n) : ";
             cin >> confirm;
 
-            if (confirm == "Y" || "y")
+            if (confirm == "Y" || confirm == "y")
             {
                 string line;
                 string userToDelete = username + " " + password;
@@ -316,6 +316,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 cout << setfill('=') << setw(55) << "=" << endl;
                 cout << "Press Any key to Exit... " << endl;
                 getch();
+                return false;
             }
          
 

@@ -144,7 +144,6 @@ bool Insert_User(ifstream &InFile)
         ofstream fileOut(Filename.c_str(), ios_base::app);
         fileOut << Name << " " << Password << endl;
         fileOut.close();
-
         return (true);
     }
 
@@ -334,4 +333,16 @@ bool Delete_User(ifstream &InFile, const string Filename)
     }
 
     return false;
+}
+
+
+
+void alert(string text){
+    system("CLS");
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << setfill(' ') << setw(35);
+    cout << text << endl;
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << "Press Any key to Continue... ";
+    getch();
 }

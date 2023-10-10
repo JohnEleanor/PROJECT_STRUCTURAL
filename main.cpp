@@ -125,13 +125,9 @@ int main()
                         user_add_status = Insert_User(InFile);
                         if ( user_add_status == 1 )
                         {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "Add User successfully ;)" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch();
+                            alert("Add User successfully ;)");
+                        } else {
+                            alert("Your username have been already");
                         }
                     }
                     else if (user_select == "2")

@@ -199,12 +199,12 @@ bool Edit_User(ifstream &InFile, const string Filename)
                 string newUsertoEdit = username + " " + password;
                 string line;
 
-        /**
-            * @param line คือข้อมูลที่อ่านได้มาในไฟล์ .txt
-            * @param fileInOut คือตัวอ่านไฟล์
-        */
+    /**
+        * @param line คือข้อมูลที่อ่านได้มาในไฟล์ .txt
+        * @param fileInOut คือตัวอ่านไฟล์
+    */
 
-                 while (getline(fileInOut, line))
+                while (getline(fileInOut, line))
                 {
                     if (line != userToEdit)
                     {

@@ -19,6 +19,6 @@
     [💻] Student_1 : 6606021420121 Chayanon winyan SEC A 
     [💻] Student_2 : 6606021420148 Choritros Suwansoot SEC A 
 
-# Default
+# Default User
     [🗂] username : Admin
     [🗂] Password : Admin

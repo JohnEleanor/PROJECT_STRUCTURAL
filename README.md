@@ -16,7 +16,7 @@
     use by c++ 
 
 # Collaborators
-    [💻] Student_1 : 
+    [💻] Student_1 : 6606021420121 Chayanon winyan SEC A 
     [💻] Student_2 : 6606021420148 Choritros Suwansoot SEC A 
 
 # Default

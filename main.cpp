@@ -1,3 +1,24 @@
+/** (shortcut / + * + *  + ENTER ) RQ: comment Better
+ * @file main.cpp
+ * 
+ * @author Choritros Suwansoot & Chayanon winyan
+ * @brief ทั้งหมดนี้ขอเเค่ใช้ได้ก็พอ
+ * @version 0.1
+ * @date 2023-10-12
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
+/*
+ ! [💻] 12/10/2023 =>  เดี๋ยวมาต่อ พน 😴😴😴😴
+
+TODO: ทำ Create Room UI ให้คำนวน
+TODO: ทำ Edit Room
+
+*/
+
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -15,6 +36,9 @@ int main()
     string Filename = "user.txt";
     ifstream InFile;
     ofstream OutFile;
+
+    string FileRoom = "room.txt";
+    ifstream InFileRoom;
 
 
 
@@ -68,6 +92,8 @@ int main()
                 cout << setfill(' ') << setw(25) << "Login Successfully Welcome" << setfill('=') << setw(5) << endl;
                 cout << setfill('=') << setw(55) << "=" << endl;
                 string room_select;
+                bool room_add_status, room_delete_status, room_edut_status;
+
                 do
                 {
                     room_menu(); //? MENU
@@ -81,17 +107,28 @@ int main()
                     else if (room_select == "1")
                     {
 
-                        cout << "This  is Menu 1 : \n";
+                        room_add_status = Room_Create(InFileRoom, FileRoom);
+                        if (room_add_status == true) {
+                            alert("[+] Create Room Successfully :)");
+                        }else {
+                            alert("[-] Room Have Already :(");
+                        }
                     }
                     else if (room_select == "2")
                     {
+                        Room_Edit(InFileRoom, FileRoom);
 
-                        cout << "this is menu 2 : \n";
+                        
                     }
                     else if (room_select == "3")
                     {
+                        room_delete_status = Room_Delete(InFileRoom, FileRoom);
 
-                        cout << "This is Menu 3 : \n";
+                        if (room_delete_status == true) {
+                            alert("[+] Delete Room Successfully :)");
+                        } else {
+                            alert("[-] Can not Delete Room :(");
+                        }
                     }
                     else
                     {
@@ -122,29 +159,29 @@ int main()
                     else if (user_select == "1")
                     {
                         
-                        user_add_status = Insert_User(InFile);
+                        user_add_status = User_insert(InFile, Filename);
                         if ( user_add_status == 1 )
                         {
-                            alert("Add User successfully ;)");
+                            alert("[+] Add User successfully ;)");
                         } else {
-                            alert("Your username have been already");
+                            alert("[-] Your username have been already");
                         }
                     }
                     else if (user_select == "2")
                     {
-                        user_edut_status = Edit_User(InFile, Filename);
+                        user_edut_status = User_Edit(InFile, Filename);
                         if (user_edut_status == true ) 
                         {
-                            alert("Edit User successfully ;)");
+                            alert("[+] Edit User successfully ;)");
                         }
                     }
                     else if (user_select == "3")
                     {
                         
-                        user_delete_status = Delete_User(InFile, Filename);
+                        user_delete_status = User_Delete(InFile, Filename);
                         if ( user_delete_status == true )
                         {
-                            alert("Delete User successfully ;)");
+                            alert("[+] Delete User successfully ;)");
                         }
                     }
                     else

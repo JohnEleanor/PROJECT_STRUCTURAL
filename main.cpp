@@ -107,7 +107,7 @@ int main()
                     else if (room_select == "1")
                     {
 
-                        room_add_status = Room_Create(InFileRoom, FileRoom);
+                        room_add_status = Room_Insert(InFileRoom, FileRoom);
                         
                         if (room_add_status == true) {
                             alert("[+] Create Room Successfully :)");

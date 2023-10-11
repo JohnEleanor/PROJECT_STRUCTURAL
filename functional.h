@@ -330,7 +330,7 @@ bool User_Delete(ifstream &InFile, const string Filename)
     return false;
 }
 
-bool Room_Create(ifstream &InFile, const string Filename)
+bool Room_Insert(ifstream &InFile, const string Filename)
 {
     system("CLS");
     string roomNo, CustomerName, CustomerPhone;

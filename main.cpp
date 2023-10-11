@@ -14,7 +14,7 @@
  ! [💻] 12/10/2023 =>  เดี๋ยวมาต่อ พน 😴😴😴😴
 
 TODO: ทำ Create Room UI ให้คำนวน
-TODO: ทำ Edit Room
+TODO: ความละเอียดในการเเก้ไขเช่น ต้องการเปลี่ยน Room No. ? OR ต้องการเปลี่ยน Room Price. ? 
 
 */
 
@@ -92,7 +92,7 @@ int main()
                 cout << setfill(' ') << setw(25) << "Login Successfully Welcome" << setfill('=') << setw(5) << endl;
                 cout << setfill('=') << setw(55) << "=" << endl;
                 string room_select;
-                bool room_add_status, room_delete_status, room_edut_status;
+                bool room_add_status, room_delete_status, room_edit_status;
 
                 do
                 {
@@ -108,16 +108,25 @@ int main()
                     {
 
                         room_add_status = Room_Create(InFileRoom, FileRoom);
+                        
                         if (room_add_status == true) {
                             alert("[+] Create Room Successfully :)");
                         }else {
                             alert("[-] Room Have Already :(");
                         }
+
+
                     }
                     else if (room_select == "2")
                     {
-                        Room_Edit(InFileRoom, FileRoom);
 
+                        room_edit_status = Room_Edit(InFileRoom, FileRoom);
+                        
+                        if (room_edit_status == true){
+                            alert("[+] Edit Your Room Successfully :(");
+                        } else {
+                            alert("[-] Can not find your Room No. :(");
+                        }
                         
                     }
                     else if (room_select == "3")
@@ -129,6 +138,7 @@ int main()
                         } else {
                             alert("[-] Can not Delete Room :(");
                         }
+
                     }
                     else
                     {

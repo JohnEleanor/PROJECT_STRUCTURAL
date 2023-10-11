@@ -47,11 +47,9 @@ void main_menu()
 */
 void room_menu()
 {
-    // system("CLS");
-    // cout << "===== Room management =====\n";
     system("CLS");
     cout << setfill('=') << setw(55) << "=" << endl;
-    cout << setfill(' ') << setw(35);
+    cout << setfill(' ') << setw(30);
     cout << "Room management" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << "[1] Create Room \n";
@@ -142,7 +140,6 @@ bool CheckUser_Haved(ifstream &InFile, string Check_user, string Check_password)
 
 bool Check_Room(ifstream &InFile ,string RoomNo)
 {
-
     bool dataExists = false;
     string line;
     string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
@@ -404,34 +401,78 @@ bool Room_Create(ifstream &InFile, const string Filename)
 bool Room_Edit(ifstream &InFile, const string Filename)
 {
     system("CLS");
-    string roomNo, CustomerName, CustomerPhone;
-    double roomBooking_Day, pricePer_Day;
+    string roomNo, CustomerName, CustomerPhone, roomBooking_Day;
+
+    bool CheckRoomStatus;
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
-    cout << "Room Create" << endl;
+    cout << "Edit Room" << endl;
     cout << setfill('=') << setw(55) << "=" << endl;
-    cout << "[+] Enter Your Room Number : ";
+    cout << "[+] Enter Your Room Number ( You want to edit ) : ";
     cin >> roomNo;
-    cout << "[+] Enter Your Room Booking Day : ";
-    cin >> roomBooking_Day;
-    cout << "[+] Enter Your Price/Day : ";
-    cin >> pricePer_Day;
-    cout << "[+] Enter Your Customer Name : ";
-    cin >> CustomerName;
-    cout << "[+] Enter Your Customer Phone Number : ";
-    cin >> CustomerPhone;
+
+    InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
+    CheckRoomStatus = Check_Room(InFile, roomNo );
+    InFile.close();
+
+    if (CheckRoomStatus == true){
+        system("CLS");
+        string new_room_no, new_roomBooking_Day, new_pricePer_Day, new_CustomerName, new_CustomerPhone;
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << setfill(' ') << setw(35);
+        cout << "[!] Edit Mode" << endl;
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << "[+] Enter Your New Room Number : ";
+        cin >> new_room_no;
+        cout << "[+] Enter Your New Room Booking Day : ";
+        cin >> new_roomBooking_Day;
+        cout << "[+] Enter Your New Room Price/Day : ";
+        cin >> new_pricePer_Day;
+        cout << "[+] Enter Your New Room Customer Name : ";
+        cin >> new_CustomerName;
+        cout << "[+] Enter Your New Room Phone Number : ";
+        cin >> new_CustomerPhone;
+        string new_Edit_concate = new_room_no + " " + new_roomBooking_Day + " " + new_pricePer_Day + " " + new_CustomerName + " " + new_CustomerPhone;
+        
+        string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
+        string line;
+        fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+        
+        // สร้างไฟล์สำรองขึ้นมาก่อนเเล้ว copy ข้อมูลเเล้วลบบรรทัด
+        ofstream tempFile("temp.txt");
+        
+        while (fileInOut >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >>  Room_CustomerName >>  Room_CustomerPhone)
+        {
+            string concatenate_room = File_RoomNo + " " + File_roomBooking_Day + " " + Room_pricePer_Day + " " + Room_CustomerName + " " +Room_CustomerPhone;
+
+            if (File_RoomNo != roomNo) //ถ้าเลขห้องที่อ่านไม่ตรงกับที่ต้องการลบข้ความนั้นก็จะถูกเขียนไป (ไฟล์ใหม่) 😴 หรือ 
+            {
+                tempFile << concatenate_room << endl;
+            }
+
+        }
+
+        tempFile << new_Edit_concate << endl;
 
 
+        fileInOut.close();
+        tempFile.close();
 
-    cout << "=========" << endl;
-    cout << "Room Number : " << roomNo << endl;
-    cout << "Customer : " << CustomerName << endl;
-    cout << "Customer Phone Number : " << CustomerPhone << endl;
-    cout << "Booking Room (Day) " << roomBooking_Day <<  endl;
-    cout << "Price (perDay) : " << pricePer_Day << endl;
-    cout << "Total Price / Day  : " << roomBooking_Day * pricePer_Day  << endl;
-    getch();
-    return (false);
+        // ลบไฟล์เก่า
+        remove("room.txt");
+        //! ตรงนี้ [Debug]
+        // cout << "Delete Old file.. " << endl;
+        // getch();
+
+        // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
+        rename("temp.txt", Filename.c_str());
+        return (true);
+    }else{
+        cout << "[ERROR] Can not Write File ." << endl;
+        return (false);
+    }
+
+
 }
 
 

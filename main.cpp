@@ -1,3 +1,24 @@
+/** (shortcut / + * + *  + ENTER ) RQ: comment Better
+ * @file main.cpp
+ * 
+ * @author Choritros Suwansoot & Chayanon winyan
+ * @brief ทั้งหมดนี้ขอเเค่ใช้ได้ก็พอ
+ * @version 0.1
+ * @date 2023-10-12
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
+/*
+ ! [💻] 12/10/2023 =>  เดี๋ยวมาต่อ พน 😴😴😴😴
+
+TODO: ทำ Create Room UI ให้คำนวน
+TODO: ความละเอียดในการเเก้ไขเช่น ต้องการเปลี่ยน Room No. ? OR ต้องการเปลี่ยน Room Price. ? 
+
+*/
+
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -15,6 +36,9 @@ int main()
     string Filename = "user.txt";
     ifstream InFile;
     ofstream OutFile;
+
+    string FileRoom = "room.txt";
+    ifstream InFileRoom;
 
 
 
@@ -39,7 +63,9 @@ int main()
 
         //! การดึงไฟล์มาอ่าน
         InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
+
         CheckUserStatus = CheckUser(InFile, username, password);
+        CheckUserStatus = Check_User(InFile, username, password);
         InFile.close();
 
         if (CheckUserStatus == false)
@@ -68,6 +94,8 @@ int main()
                 cout << setfill(' ') << setw(25) << "Login Successfully Welcome" << setfill('=') << setw(5) << endl;
                 cout << setfill('=') << setw(55) << "=" << endl;
                 string room_select;
+                bool room_add_status, room_delete_status, room_edit_status;
+
                 do
                 {
                     room_menu(); //? MENU
@@ -81,17 +109,38 @@ int main()
                     else if (room_select == "1")
                     {
 
-                        cout << "This  is Menu 1 : \n";
+                        room_add_status = Room_Insert(InFileRoom, FileRoom);
+                        
+                        if (room_add_status == true) {
+                            alert("[+] Create Room Successfully :)");
+                        }else {
+                            alert("[-] Room Have Already :(");
+                        }
+
+
                     }
                     else if (room_select == "2")
                     {
 
-                        cout << "this is menu 2 : \n";
+                        room_edit_status = Room_Edit(InFileRoom, FileRoom);
+                        
+                        if (room_edit_status == true){
+                            alert("[+] Edit Your Room Successfully :(");
+                        } else {
+                            alert("[-] Can not find your Room No. :(");
+                        }
+                        
                     }
                     else if (room_select == "3")
                     {
+                        room_delete_status = Room_Delete(InFileRoom, FileRoom);
 
-                        cout << "This is Menu 3 : \n";
+                        if (room_delete_status == true) {
+                            alert("[+] Delete Room Successfully :)");
+                        } else {
+                            alert("[-] Can not find your Room NO. :(");
+                        }
+
                     }
                     else
                     {
@@ -128,6 +177,12 @@ int main()
                             alert("Add User successfully ;)");
                         } else {
                             alert("Your username have been already");
+                        user_add_status = User_insert(InFile, Filename);
+                        if ( user_add_status == 1 )
+                        {
+                            alert("[+] Add User successfully ;)");
+                        } else {
+                            alert("[-] Your username have been already");
                         }
                     }
                     else if (user_select == "2")
@@ -142,6 +197,10 @@ int main()
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << "Press Any key to Continue... ";
                             getch(); 
+                        user_edut_status = User_Edit(InFile, Filename);
+                        if (user_edut_status == true ) 
+                        {
+                            alert("[+] Edit User successfully ;)");
                         }
                     }
                     else if (user_select == "3")
@@ -157,6 +216,10 @@ int main()
                             cout << setfill('=') << setw(55) << "=" << endl;
                             cout << "Press Any key to Continue... ";
                             getch();
+                        user_delete_status = User_Delete(InFile, Filename);
+                        if ( user_delete_status == true )
+                        {
+                            alert("[+] Delete User successfully ;)");
                         }
                     }
                     else
@@ -183,6 +246,7 @@ int main()
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << "Press Any key to Exit... ";
     getch();
+    alert("Thank You ;)");
 
     return 0;
 }

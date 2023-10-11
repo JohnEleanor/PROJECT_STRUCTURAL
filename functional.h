@@ -37,7 +37,7 @@ void main_menu()
 */
 void room_menu()
 {
-    // system("CLS");
+    system("CLS");
     cout << "===== Room management =====\n";
     cout << "[1] Create Room \n";
     cout << "[2] Edit Room \n";
@@ -79,11 +79,23 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
 
     while (InFile >> username >> pass)
     {
-        if (param_username == username && param_password == pass)
+        cout << username << endl;
+        cout << pass << endl;
+        
+        if (param_username != username)
         {
-            cout << "yay Correct Let gooooo.. " << endl;
+            cout << "user not correct .. " << endl;
+            
+        }else if (param_password != pass) 
+        {
+            cout << "user not correct .. " << endl;
+            
+        }else {
+
+            cout << "every thing goods ..";
             return true;
         }
+        
     }
 
     return false;
@@ -137,7 +149,7 @@ bool Insert_User(ifstream &InFile)
     cout << "[+] Plase Enter Your (New Password) : ";
     cin >> Password;
 
-    CheckAlready_user = CheckUser_Haved(InFile, Name, Password);
+    CheckAlready_user = CheckUser(InFile, Name, Password);
 
     if (CheckAlready_user == false)
     {

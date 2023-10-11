@@ -85,32 +85,7 @@ void user_menu()
     [🧠] เช็อการ Login
     [📂] ใช้สำหรับ : เช็คผู้ใชงานสำหรับ Login
 */
-bool CheckUser(ifstream &InFile, string param_username, string param_password)
-{
 
-    string username, pass;
-
-    while (InFile >> username >> pass)
-    {
-
-        if (param_username != username)
-        {
-            cout << "user not correct .. " << endl;
-        }
-        else if (param_password != pass)
-        {
-            cout << "user not correct .. " << endl;
-        }
-        else
-        {
-
-            cout << "every thing goods ..";
-            return true;
-        }
-    }
-
-    return false;
-}
 
 /*
     [🧠] เช็คบรรทัด
@@ -177,7 +152,7 @@ bool User_insert(ifstream &InFile, const string Filename)
     cout << "[+] Plase Enter Your (New Password) : ";
     cin >> Password;
 
-    CheckAlready_user = CheckUser(InFile, Name, Password);
+    CheckAlready_user = CheckUser_Haved(InFile, Name, Password);
 
     if (CheckAlready_user == false)
     {

@@ -63,7 +63,7 @@ int main()
 
         //! การดึงไฟล์มาอ่าน
         InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
-        CheckUserStatus = CheckUser(InFile, username, password);
+        CheckUserStatus = CheckUser_Haved(InFile, username, password);
         InFile.close();
 
         if (CheckUserStatus == false)

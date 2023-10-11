@@ -62,6 +62,8 @@ int main()
 
         //! การดึงไฟล์มาอ่าน
         InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
+
+        CheckUserStatus = CheckUser(InFile, username, password);
         CheckUserStatus = Check_User(InFile, username, password);
         InFile.close();
 
@@ -168,6 +170,12 @@ int main()
                     else if (user_select == "1")
                     {
                         
+                        user_add_status = Insert_User(InFile);
+                        if ( user_add_status == 1 )
+                        {
+                            alert("Add User successfully ;)");
+                        } else {
+                            alert("Your username have been already");
                         user_add_status = User_insert(InFile, Filename);
                         if ( user_add_status == 1 )
                         {
@@ -178,6 +186,16 @@ int main()
                     }
                     else if (user_select == "2")
                     {
+                        user_edut_status = Edit_User(InFile, Filename);
+                        if (user_edut_status == true ) 
+                        {
+                            system("CLS");
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << setfill(' ') << setw(35);
+                            cout << "Edit User successfully ;)" << endl;
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << "Press Any key to Continue... ";
+                            getch(); 
                         user_edut_status = User_Edit(InFile, Filename);
                         if (user_edut_status == true ) 
                         {
@@ -187,6 +205,16 @@ int main()
                     else if (user_select == "3")
                     {
                         
+                        user_delete_status = Delete_User(InFile, Filename);
+                        if ( user_delete_status == true )
+                        {
+                            system("CLS");
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << setfill(' ') << setw(35);
+                            cout << "Delete User successfully ;)" << endl;
+                            cout << setfill('=') << setw(55) << "=" << endl;
+                            cout << "Press Any key to Continue... ";
+                            getch();
                         user_delete_status = User_Delete(InFile, Filename);
                         if ( user_delete_status == true )
                         {
@@ -210,6 +238,13 @@ int main()
         } while (select_menu != "0");
     }
    
+    system("CLS");
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << setfill(' ') << setw(35);
+    cout << "Thank You ;)" << endl;
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << "Press Any key to Exit... ";
+    getch();
     alert("Thank You ;)");
 
     return 0;

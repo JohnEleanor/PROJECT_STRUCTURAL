@@ -12,8 +12,8 @@
 
 
 # PROJECT_STRUCTURAL
-    This is Project About Room Management System
-    use by c++ 
+  This is Project About Room Management System
+  use by c++
 
 # Collaborators
     [💻] Student_1 : 6606021420121 Chayanon winyan SEC A 

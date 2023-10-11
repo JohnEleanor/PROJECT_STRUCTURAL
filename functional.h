@@ -384,6 +384,17 @@ bool Room_Create(ifstream &InFile, const string Filename)
         ofstream fileOut(Filename.c_str(), ios_base::app);
         fileOut << roomNo << " " << roomBooking_Day << " " << pricePer_Day << " " << CustomerName << " " << CustomerPhone << endl;
         fileOut.close();
+        system("CLS");
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << setfill(' ') << setw(35);
+        cout << "[*] Zone Customer " << endl;
+        cout << setfill('=') << setw(55) << "=" << endl;
+        cout << "This is your Booking Day : " << roomBooking_Day << endl;
+        cout << "This is your Price/Day : " << pricePer_Day << endl;
+        cout << "For Customer name  : " << CustomerName << endl;
+        cout << "This is total : " << roomBooking_Day * pricePer_Day << " BATH" <<  endl;
+        cout << "Press Enter Any Key To Continue...";
+        getch();
         return (true);
     }
     else
@@ -489,13 +500,16 @@ bool Room_Delete(ifstream &InFile, const string Filename)
 
     CheckRoomStatus = Check_Room(InFile, roomNo);
     InFile.close();
-    
+
     string Confirm_Delete;
     do
     {
         cout << "Are you sure You want to Delete (Y/n) : ";
         cin >> Confirm_Delete;
-        if (CheckRoomStatus == false) // false เเปลว่ามี
+
+        if(Confirm_Delete == "Y" || Confirm_Delete == "y")
+        {
+            if (CheckRoomStatus == false) // false เเปลว่ามี
         {
 
             string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
@@ -528,7 +542,14 @@ bool Room_Delete(ifstream &InFile, const string Filename)
             rename("temp.txt", Filename.c_str());
             return (true);
         }
+
+        }else {
+           return (false); 
+        }
+        
     } while (Confirm_Delete == "Y" || Confirm_Delete == "y");
+
+    
 
     return (false);
 }

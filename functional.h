@@ -9,10 +9,10 @@ using namespace std;
  *? @function Insert_User() เพิ่มผู้ใช้งาน
  *? @function Edit_User() เเก้ไขผู้ใช้งาน
  *? @function Delete_User() ลบผู้ใช้งาน
-*/
+ */
 
-
-void alert(string text){
+void alert(string text)
+{
     system("CLS");
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
@@ -92,21 +92,21 @@ bool CheckUser(ifstream &InFile, string param_username, string param_password)
 
     while (InFile >> username >> pass)
     {
-        
+
         if (param_username != username)
         {
             cout << "user not correct .. " << endl;
-            
-        }else if (param_password != pass) 
+        }
+        else if (param_password != pass)
         {
             cout << "user not correct .. " << endl;
-            
-        }else {
+        }
+        else
+        {
 
             cout << "every thing goods ..";
             return true;
         }
-        
     }
 
     return false;
@@ -138,13 +138,13 @@ bool CheckUser_Haved(ifstream &InFile, string Check_user, string Check_password)
     return dataExists;
 }
 
-bool Check_Room(ifstream &InFile ,string RoomNo)
+bool Check_Room(ifstream &InFile, string RoomNo)
 {
     bool dataExists = false;
     string line;
     string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
 
-    while (InFile >> File_RoomNo >>File_roomBooking_Day >> Room_pricePer_Day >>  Room_CustomerName >>  Room_CustomerPhone)
+    while (InFile >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >> Room_CustomerName >> Room_CustomerPhone)
     {
         if (File_RoomNo == RoomNo)
         {
@@ -156,12 +156,11 @@ bool Check_Room(ifstream &InFile ,string RoomNo)
     return dataExists;
 }
 
-
 /*
     [🧠] เพิ่มผู้ใชงาน
     [📂] ใช้สำหรับ : เพิ่มผู้ใช้งาน
 */
-bool User_insert(ifstream &InFile,const string Filename)
+bool User_insert(ifstream &InFile, const string Filename)
 {
 
     system("CLS");
@@ -211,7 +210,7 @@ bool User_Edit(ifstream &InFile, const string Filename)
 
     Check_status = CheckUser_Haved(InFile, old_username, old_password);
     InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); มั่วทรง
-    
+
     if (Check_status == true) // ถ้า input มีอยู่จริง จึงจะเเก้ไขได้
     {
 
@@ -224,7 +223,7 @@ bool User_Edit(ifstream &InFile, const string Filename)
 
             if (Confirm == "Y" || Confirm == "y")
             {
-      
+
                 system("CLS");
                 cout << setfill('=') << setw(55) << "=" << endl;
                 cout << setfill(' ') << setw(35);
@@ -241,10 +240,10 @@ bool User_Edit(ifstream &InFile, const string Filename)
                 string newUsertoEdit = username + " " + password;
                 string line;
 
-    /**
-        * @param line คือข้อมูลที่อ่านได้มาในไฟล์ .txt
-        * @param fileInOut คือตัวอ่านไฟล์
-    */
+                /**
+                 * @param line คือข้อมูลที่อ่านได้มาในไฟล์ .txt
+                 * @param fileInOut คือตัวอ่านไฟล์
+                 */
 
                 while (getline(fileInOut, line))
                 {
@@ -252,7 +251,6 @@ bool User_Edit(ifstream &InFile, const string Filename)
                     {
                         tempFile << line << endl;
                     }
-                    
                 }
 
                 tempFile << newUsertoEdit << endl;
@@ -274,7 +272,8 @@ bool User_Edit(ifstream &InFile, const string Filename)
     }
     else
     {
-        cout << endl << "Can not find your input ;( .. ";
+        cout << endl
+             << "Can not find your input ;( .. ";
     }
     return false;
 }
@@ -339,12 +338,12 @@ bool User_Delete(ifstream &InFile, const string Filename)
                 rename("temp.txt", Filename.c_str());
 
                 return true;
-            } else
+            }
+            else
             {
                 alert("[+] Deletion canceled.");
                 return false;
             }
-         
 
         } while (confirm == "Y");
     }
@@ -355,9 +354,6 @@ bool User_Delete(ifstream &InFile, const string Filename)
 
     return false;
 }
-
-
-
 
 bool Room_Create(ifstream &InFile, const string Filename)
 {
@@ -381,22 +377,21 @@ bool Room_Create(ifstream &InFile, const string Filename)
     cin >> CustomerPhone;
 
     InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
-    CheckRoomStatus = Check_Room(InFile, roomNo );
+    CheckRoomStatus = Check_Room(InFile, roomNo);
 
-    if (CheckRoomStatus == false){
+    if (CheckRoomStatus == false)
+    {
         ofstream fileOut(Filename.c_str(), ios_base::app);
         fileOut << roomNo << " " << roomBooking_Day << " " << pricePer_Day << " " << CustomerName << " " << CustomerPhone << endl;
         fileOut.close();
         return (true);
-    }else{
+    }
+    else
+    {
         cout << "[ERROR] Can not Write File ." << endl;
         return (false);
     }
-    
-
 }
-
-
 
 bool Room_Edit(ifstream &InFile, const string Filename)
 {
@@ -412,10 +407,11 @@ bool Room_Edit(ifstream &InFile, const string Filename)
     cin >> roomNo;
 
     InFile.open(Filename.c_str()); //! เปิดไฟล์เเละเช็ค
-    CheckRoomStatus = Check_Room(InFile, roomNo );
+    CheckRoomStatus = Check_Room(InFile, roomNo);
     InFile.close();
 
-    if (CheckRoomStatus == true){
+    if (CheckRoomStatus == true)
+    {
         system("CLS");
         string new_room_no, new_roomBooking_Day, new_pricePer_Day, new_CustomerName, new_CustomerPhone;
         cout << setfill('=') << setw(55) << "=" << endl;
@@ -433,27 +429,25 @@ bool Room_Edit(ifstream &InFile, const string Filename)
         cout << "[+] Enter Your New Room Phone Number : ";
         cin >> new_CustomerPhone;
         string new_Edit_concate = new_room_no + " " + new_roomBooking_Day + " " + new_pricePer_Day + " " + new_CustomerName + " " + new_CustomerPhone;
-        
+
         string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
         string line;
         fstream fileInOut(Filename.c_str(), ios::in | ios::out);
-        
+
         // สร้างไฟล์สำรองขึ้นมาก่อนเเล้ว copy ข้อมูลเเล้วลบบรรทัด
         ofstream tempFile("temp.txt");
-        
-        while (fileInOut >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >>  Room_CustomerName >>  Room_CustomerPhone)
-        {
-            string concatenate_room = File_RoomNo + " " + File_roomBooking_Day + " " + Room_pricePer_Day + " " + Room_CustomerName + " " +Room_CustomerPhone;
 
-            if (File_RoomNo != roomNo) //ถ้าเลขห้องที่อ่านไม่ตรงกับที่ต้องการลบข้ความนั้นก็จะถูกเขียนไป (ไฟล์ใหม่) 😴 หรือ 
+        while (fileInOut >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >> Room_CustomerName >> Room_CustomerPhone)
+        {
+            string concatenate_room = File_RoomNo + " " + File_roomBooking_Day + " " + Room_pricePer_Day + " " + Room_CustomerName + " " + Room_CustomerPhone;
+
+            if (File_RoomNo != roomNo) // ถ้าเลขห้องที่อ่านไม่ตรงกับที่ต้องการลบข้ความนั้นก็จะถูกเขียนไป (ไฟล์ใหม่) 😴 หรือ
             {
                 tempFile << concatenate_room << endl;
             }
-
         }
 
         tempFile << new_Edit_concate << endl;
-
 
         fileInOut.close();
         tempFile.close();
@@ -467,26 +461,25 @@ bool Room_Edit(ifstream &InFile, const string Filename)
         // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
         rename("temp.txt", Filename.c_str());
         return (true);
-    }else{
+    }
+    else
+    {
         cout << "[ERROR] Can not Write File ." << endl;
         return (false);
     }
-
-
 }
 
-
 /**
- * @brief หลักการทำงานก็คือลบโดยอ้างอิงจากเลขห้อง โดย เลขห้องจะไม่ซ้ำกัน 
- * 
-*/
+ * @brief หลักการทำงานก็คือลบโดยอ้างอิงจากเลขห้อง โดย เลขห้องจะไม่ซ้ำกัน
+ *
+ */
 
 bool Room_Delete(ifstream &InFile, const string Filename)
 {
     system("CLS");
     string roomNo;
     bool CheckRoomStatus;
-   
+
     cout << setfill('=') << setw(55) << "=" << endl;
     cout << setfill(' ') << setw(35);
     cout << "Delete Mode ;)" << endl;
@@ -496,40 +489,46 @@ bool Room_Delete(ifstream &InFile, const string Filename)
 
     CheckRoomStatus = Check_Room(InFile, roomNo);
     InFile.close();
-
-    if (CheckRoomStatus == false) // false เเปลว่ามี
+    
+    string Confirm_Delete;
+    do
     {
-        string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
-        string line;
-        fstream fileInOut(Filename.c_str(), ios::in | ios::out);
-        
-        // สร้างไฟล์สำรองขึ้นมาก่อนเเล้ว copy ข้อมูลเเล้วลบบรรทัด
-        ofstream tempFile("temp.txt");
-        
-        while (fileInOut >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >>  Room_CustomerName >>  Room_CustomerPhone)
+        cout << "Are you sure You want to Delete (Y/n) : ";
+        cin >> Confirm_Delete;
+        if (CheckRoomStatus == false) // false เเปลว่ามี
         {
-            string concatenate_room = File_RoomNo + " " + File_roomBooking_Day + " " + Room_pricePer_Day + " " + Room_CustomerName + " " +Room_CustomerPhone;
 
-            if (File_RoomNo != roomNo) //ถ้าเลขห้องที่อ่านไม่ตรงกับที่ต้องการลบข้ความนั้นก็จะถูกเขียนไป (ไฟล์ใหม่) 😴
+            string File_RoomNo, File_roomBooking_Day, Room_pricePer_Day, Room_CustomerName, Room_CustomerPhone;
+            string line;
+            fstream fileInOut(Filename.c_str(), ios::in | ios::out);
+
+            // สร้างไฟล์สำรองขึ้นมาก่อนเเล้ว copy ข้อมูลเเล้วลบบรรทัด
+            ofstream tempFile("temp.txt");
+
+            while (fileInOut >> File_RoomNo >> File_roomBooking_Day >> Room_pricePer_Day >> Room_CustomerName >> Room_CustomerPhone)
             {
-                tempFile << concatenate_room << endl;
+                string concatenate_room = File_RoomNo + " " + File_roomBooking_Day + " " + Room_pricePer_Day + " " + Room_CustomerName + " " + Room_CustomerPhone;
+
+                if (File_RoomNo != roomNo) // ถ้าเลขห้องที่อ่านไม่ตรงกับที่ต้องการลบข้ความนั้นก็จะถูกเขียนไป (ไฟล์ใหม่) 😴
+                {
+                    tempFile << concatenate_room << endl;
+                }
             }
+
+            fileInOut.close();
+            tempFile.close();
+
+            // ลบไฟล์เก่า
+            remove("room.txt");
+            //! ตรงนี้ [Debug]
+            // cout << "Delete Old file.. " << endl;
+            // getch();
+
+            // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
+            rename("temp.txt", Filename.c_str());
+            return (true);
         }
-
-
-        fileInOut.close();
-        tempFile.close();
-
-        // ลบไฟล์เก่า
-        remove("room.txt");
-        //! ตรงนี้ [Debug]
-        // cout << "Delete Old file.. " << endl;
-        // getch();
-
-        // เปลี่ยนชื่อไฟล์ temp.txt เป็น user.txt อิอิ 😴
-        rename("temp.txt", Filename.c_str());
-        return (true);
-    }
+    } while (Confirm_Delete == "Y" || Confirm_Delete == "y");
 
     return (false);
 }

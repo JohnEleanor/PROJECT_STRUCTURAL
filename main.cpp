@@ -136,7 +136,7 @@ int main()
                         if (room_delete_status == true) {
                             alert("[+] Delete Room Successfully :)");
                         } else {
-                            alert("[-] Can not Delete Room :(");
+                            alert("[-] Can not find your Room NO. :(");
                         }
 
                     }

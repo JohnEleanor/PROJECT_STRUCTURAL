@@ -5,7 +5,7 @@ using namespace std;
  *? @function main_menu() เเสดงผลหน้าหลัก
  *? @function room_menu() เเสดงผลหน้าห้อง
  *? @function user_menu() เเสดงผลหน้าผู้ใช้งาน
- *? @function CheckUser_Haved() เช็คผู้ใช้ในบรรทัด return true
+ *? @function Check_User() เช็คผู้ใช้ในบรรทัด return true
  *? @function Insert_User() เพิ่มผู้ใช้งาน
  *? @function Edit_User() เเก้ไขผู้ใช้งาน
  *? @function Delete_User() ลบผู้ใช้งาน
@@ -92,7 +92,7 @@ void user_menu()
     [📂] ใช้สำหรับ : เช็คการมีอยู่ของ input ที่กรอกเข้ามา
     [🎃] ถ้ามีอยู่ return (ture)
 */
-bool CheckUser_Haved(ifstream &InFile, string Check_user, string Check_password)
+bool Check_User(ifstream &InFile, string Check_user, string Check_password)
 {
 
     bool dataExists = false;
@@ -152,7 +152,7 @@ bool User_insert(ifstream &InFile, const string Filename)
     cout << "[+] Plase Enter Your (New Password) : ";
     cin >> Password;
 
-    CheckAlready_user = CheckUser_Haved(InFile, Name, Password);
+    CheckAlready_user = Check_User(InFile, Name, Password);
 
     if (CheckAlready_user == false)
     {
@@ -183,7 +183,7 @@ bool User_Edit(ifstream &InFile, const string Filename)
     cout << "[+] Enter Your old password name : ";
     cin >> old_password;
 
-    Check_status = CheckUser_Haved(InFile, old_username, old_password);
+    Check_status = Check_User(InFile, old_username, old_password);
     InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); มั่วทรง
 
     if (Check_status == true) // ถ้า input มีอยู่จริง จึงจะเเก้ไขได้
@@ -272,7 +272,7 @@ bool User_Delete(ifstream &InFile, const string Filename)
     cout << "Confirm Your password : ";
     cin >> password;
 
-    check_status = CheckUser_Haved(InFile, username, password);
+    check_status = Check_User(InFile, username, password);
     InFile.close(); // ต้องปิดตัวนี้ก่อน ถึงจะใช้ fstream fileInOut(Filename.c_str(), ios::in | ios::out); มั่วทรง
 
     if (check_status == true)

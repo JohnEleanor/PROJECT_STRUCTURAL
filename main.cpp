@@ -135,13 +135,7 @@ int main()
                         user_edut_status = Edit_User(InFile, Filename);
                         if (user_edut_status == true ) 
                         {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "Edit User successfully ;)" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch(); 
+                            alert("Edit User successfully ;)");
                         }
                     }
                     else if (user_select == "3")
@@ -150,13 +144,7 @@ int main()
                         user_delete_status = Delete_User(InFile, Filename);
                         if ( user_delete_status == true )
                         {
-                            system("CLS");
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << setfill(' ') << setw(35);
-                            cout << "Delete User successfully ;)" << endl;
-                            cout << setfill('=') << setw(55) << "=" << endl;
-                            cout << "Press Any key to Continue... ";
-                            getch();
+                            alert("Delete User successfully ;)");
                         }
                     }
                     else
@@ -176,13 +164,7 @@ int main()
         } while (select_menu != "0");
     }
    
-    system("CLS");
-    cout << setfill('=') << setw(55) << "=" << endl;
-    cout << setfill(' ') << setw(35);
-    cout << "Thank You ;)" << endl;
-    cout << setfill('=') << setw(55) << "=" << endl;
-    cout << "Press Any key to Exit... ";
-    getch();
+    alert("Thank You ;)");
 
     return 0;
 }

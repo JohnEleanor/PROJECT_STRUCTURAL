@@ -10,7 +10,17 @@ using namespace std;
  *? @function Insert_User() เพิ่มผู้ใช้งาน
  *? @function Edit_User() เเก้ไขผู้ใช้งาน
  *? @function Delete_User() ลบผู้ใช้งาน
- */
+*/
+
+void alert(string text){
+    system("CLS");
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << setfill(' ') << setw(35);
+    cout << text << endl;
+    cout << setfill('=') << setw(55) << "=" << endl;
+    cout << "Press Any key to Continue... ";
+    getch();
+}
 
 /*
     [🧠] หน้าเมนูหลัก
@@ -237,14 +247,7 @@ bool Edit_User(ifstream &InFile, const string Filename)
             }
             else
             {
-
-                system("CLS");
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << setfill(' ') << setw(35);
-                cout << "[!] Action was canceled." << endl;
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... ";
-                getch();
+                alert("[!] Action was canceled.");
                 return false;
             }
         } while (Confirm == "Y" || Confirm == "y");
@@ -253,7 +256,6 @@ bool Edit_User(ifstream &InFile, const string Filename)
     {
         cout << endl << "Can not find your input ;( .. ";
     }
-    getch();
     return false;
 }
 
@@ -319,14 +321,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
                 return true;
             } else
             {
-
-                system("CLS");
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << setfill(' ') << setw(35);
-                cout << "[+] Deletion canceled." << endl;
-                cout << setfill('=') << setw(55) << "=" << endl;
-                cout << "Press Any key to Exit... " << endl;
-                getch();
+                alert("[+] Deletion canceled.");
                 return false;
             }
          
@@ -335,13 +330,7 @@ bool Delete_User(ifstream &InFile, const string Filename)
     }
     else
     {
-        system("CLS");
-        cout << setfill('=') << setw(55) << "=" << endl;
-        cout << setfill(' ') << setw(35);
-        cout << "[+] Can not find your username ;( " << endl;
-        cout << setfill('=') << setw(55) << "=" << endl;
-        cout << "Press Any key to Exit... " << endl;
-        getch();
+        alert("[+] Can not find your username ");
     }
 
     return false;
@@ -349,12 +338,3 @@ bool Delete_User(ifstream &InFile, const string Filename)
 
 
 
-void alert(string text){
-    system("CLS");
-    cout << setfill('=') << setw(55) << "=" << endl;
-    cout << setfill(' ') << setw(35);
-    cout << text << endl;
-    cout << setfill('=') << setw(55) << "=" << endl;
-    cout << "Press Any key to Continue... ";
-    getch();
-}
